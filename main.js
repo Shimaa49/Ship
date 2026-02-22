@@ -117,6 +117,8 @@ document.addEventListener("DOMContentLoaded", () => {
   scrollToSlide(0, false);
 });
 /////////////////////////rating///////////////////////////
+
+/////////////////////////rating///////////////////////////
 (() => {
   const track = document.getElementById("reviewsTrack");
   const template = document.getElementById("reviewTemplate");
@@ -126,55 +128,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!track || !template || !dotsWrap || !prevBtn || !nextBtn) return;
 
-
   const reviewsData = [
     {
       text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
       name: "John Carter",
-      role: "سائق محترف"
+      role: "سائق محترف",
     },
     {
       text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
       name: "John Carter",
-      role: "سائق محترف"
-    },
-    {
-      text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
-
-      
-      name: "John Carter",
-      role: "سائق محترف"
+      role: "سائق محترف",
     },
     {
       text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
       name: "John Carter",
-      role: "سائق محترف"
-    },
-   {
-      text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
-      name: "John Carter",
-      role: "سائق محترف"
+      role: "سائق محترف",
     },
     {
       text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
       name: "John Carter",
-      role: "سائق محترف"
+      role: "سائق محترف",
     },
     {
       text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
       name: "John Carter",
-      role: "سائق محترف"
+      role: "سائق محترف",
     },
     {
       text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
       name: "John Carter",
-      role: "سائق محترف"
+      role: "سائق محترف",
+    },
+    {
+      text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
+      name: "John Carter",
+      role: "سائق محترف",
+    },
+    {
+      text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
+      name: "John Carter",
+      role: "سائق محترف",
     },
   ];
 
-
   const renderCards = () => {
-    track.innerHTML = ""; 
+    track.innerHTML = "";
     reviewsData.forEach((item) => {
       const card = template.cloneNode(true);
       card.removeAttribute("id");
@@ -187,17 +185,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-
   const getVisibleCount = () => {
     const w = window.innerWidth;
     if (w <= 520) return 1;
     if (w <= 900) return 2;
-    return 3; // desktop
+    return 3; // desk
   };
 
   const getStep = () => {
     const card = track.querySelector(".rev-card");
     if (!card) return 0;
+
     const styles = getComputedStyle(track);
     const gap = parseFloat(styles.gap || styles.columnGap || "0");
     return card.getBoundingClientRect().width + gap;
@@ -211,15 +209,15 @@ document.addEventListener("DOMContentLoaded", () => {
     return Math.max(0, total - visible);
   };
 
- 
   const buildDots = () => {
     dotsWrap.innerHTML = "";
     const max = getMaxIndex();
-    const dotsCount = max + 1; 
+    const dotsCount = max + 1;
 
     for (let i = 0; i < dotsCount; i++) {
       const b = document.createElement("button");
       b.type = "button";
+      b.className = i === index ? "is-active" : "";
       b.addEventListener("click", () => {
         index = i;
         update();
@@ -239,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (index > max) index = max;
 
     const x = getStep() * index;
-    track.style.transform = `translateX(${x}px)`;
+    track.style.transform = `translateX(-${x}px)`; // <-- سالب
 
     updateDots();
   };
@@ -259,10 +257,81 @@ document.addEventListener("DOMContentLoaded", () => {
     update();
   });
 
-    renderCards();
+  renderCards();
   buildDots();
   update();
 })();
+/////////////////////////rating end///////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /////////////////////////rating end///////////////////////////
 //////////////////////////download///////////////////////////
 (() => {
@@ -314,4 +383,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   io.observe(section);
 })();
-//////////////////////////download end///////////////////////////
+//////////////////////////download-end///////////////////////////
