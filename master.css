@@ -20,7 +20,7 @@ body{
 
 .hero-box{
  
-  max-width: 90%;
+  max-width: 100%;
   margin: 0 auto;
 
   background: url("images/Rectangle.png") center/cover no-repeat;
@@ -52,7 +52,7 @@ body{
   align-items: center;
   justify-content: space-between;
 
-  padding: 60px 60px;
+  padding: 50px 50px;
   gap: 40px;
 }
 
@@ -79,15 +79,15 @@ body{
 
 .hero-text h1{
   margin: 0;
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 160%;
 }
 
 .hero-text h2{
   margin: 12px 0 20px;
-  font-size: 29px;
-  font-weight: 700;
+  font-size: 24px;
+  font-weight: 500;
   list-style: 24px;
 }
 
@@ -283,43 +283,51 @@ body{
 }
 
 /* ===== Layout ===== */
+/* ===== Layout ===== */
 .features__content{
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  /* gap: 50px; */
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* يمين + شمال */
+  gap: 24px;                      /* زي ما تحبي */
+  align-items: stretch;           /* أهم سطر: يخلي العمودين نفس الارتفاع */
 }
 
 /* ===== Phones (Left) ===== */
 .features__phones{
-  width: 50%;
+  height: 100%;                   /* ياخد نفس ارتفاع عمود البوكسات */
   display: flex;
-  /* gap: 5px; */
-  align-items: flex-start;
-    justify-content: space-between;
-  
+  gap: 15px;
+  align-items: stretch;           /* يخلي الاتنين نفس الارتفاع */
+  justify-content: flex-start;
 }
 
+/* خلي كل موبايل ياخد نفس المساحة */
+.features__phone{
+  flex: 1;
+  display: flex;
+}
+
+/* الصورة تملى الارتفاع بدون قص */
 .features__phone img{
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;            /* مهم: يحافظ على الصورة بدون قص */
   display: block;
 }
 
 /* ===== Cards (Right) ===== */
 .features__cards{
-  width: 50%;
+  height: 100%;                   /* اختياري، بس بيساعد مع grid */
   display: flex;
   flex-direction: column;
   gap: 10px;
-    justify-content: flex-start;
+  justify-content: space-between; /* مهم: يوزع البوكسات بحيث “تنهي” مع الصور */
 }
 
+/* خلي الكارد تتمدد لو محتاجه */
 .feature-card{
-  padding: 18px;              /* كان 26px → كبر */
+  flex: 1;                        /* يخلي الثلاث كروت ياخدوا ارتفاع متساوي */
+  padding: 18px;
   border-radius: 20px;
-  transition: all 0.3s ease;
   background: #fff;
   border: 1px solid rgba(0,0,0,.08);
   box-shadow: 0 14px 35px rgba(0,0,0,.06);
@@ -328,7 +336,6 @@ body{
   align-items: center;
   flex-direction: column;
 }
-
 
 .feature-card:hover{
  background: linear-gradient(90deg, #0f7b66 0%, #6a9f2e 100%);
@@ -360,8 +367,7 @@ body{
 
 .feature-card__icon img{
   width: 32px;
-  height: 32px;
-  display: block;
+    height: 32px;
 }
 
 .feature-card__icon--blue{ background: hsla(214, 95%, 93%, 1); }
@@ -396,45 +402,53 @@ body{
 
 /* Tablet + small laptop */
 @media (max-width: 1050px){
-  .features__container{
-    max-width: 92%;
-  }
+  .features__container{ max-width: 92%; }
 
   .features__title{
     font-size: 34px;
-    line-height: 1.2;
+    line-height: 1.25;
   }
 
   .features__desc{
     font-size: 16px;
+    line-height: 1.7;
     padding: 0 10px;
   }
 
+  /* ✅ لأننا Grid مش Flex */
   .features__content{
-    flex-direction: column;
-    gap: 22px;
+    grid-template-columns: 1fr; /* عمود واحد */
+    gap: 24px;
   }
 
+  /* phones */
   .features__phones{
-    width: 100%;
+    height: auto;               /* مهم: مانفضلش 100% في العمود الواحد */
     justify-content: center;
+    align-items: stretch;
     gap: 14px;
   }
 
   .features__phone{
-    width: min(320px, 48%);
+    flex: 1;
+    max-width: 340px;           /* يتحكم في العرض */
   }
 
   .features__phone img{
-    height: auto;
+    height: auto;               /* لأننا بقينا stack */
+    width: 100%;
+    object-fit: contain;
   }
 
+  /* cards */
   .features__cards{
-    width: 100%;
-    gap: 12px;
+    height: auto;
+    gap: 14px;
+    justify-content: flex-start; /* بدل space-between عشان ما يبقاش فيه فراغات غريبة */
   }
 
   .feature-card{
+    flex: initial;              /* وقف تساوي الارتفاع في الموبايل */
     padding: 16px;
     border-radius: 18px;
   }
@@ -449,10 +463,7 @@ body{
     height: 26px;
   }
 
-  .feature-card__text h3{
-    font-size: 18px;
-  }
-
+  .feature-card__text h3{ font-size: 18px; }
   .feature-card__text p{
     font-size: 15px;
     line-height: 1.7;
@@ -462,68 +473,62 @@ body{
 
 /* Mobile */
 @media (max-width: 576px){
-  .features{
-    padding: 30px 0;
-  }
+  .features{ padding: 30px 0; }
+  .features__container{ max-width: 92%; }
 
-  .features__container{
-    max-width: 92%;
-  }
-
-  .features__header{
-    margin-bottom: 26px;
-  }
+  .features__header{ margin-bottom: 24px; }
 
   .features__title{
     font-size: 26px;
-    line-height: 1.25;
+    line-height: 1.3;
   }
 
   .features__desc{
     font-size: 14px;
-    line-height: 1.7;
+    line-height: 1.8;
     padding: 0 6px;
   }
 
+  .features__content{
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  /* ✅ الموبايلين تحت بعض */
   .features__phones{
-    flex-direction: column;   /* ✅ واحد فوق واحد */
+    flex-direction: column;
     align-items: center;
     gap: 14px;
   }
 
   .features__phone{
-    width: min(320px, 100%);
+    max-width: 320px;
+    width: 100%;
   }
 
-  .features__cards{
-    gap: 12px;
-  }
+  .features__cards{ gap: 12px; }
 
   .feature-card{
-    padding: 14px;
+    padding: 14px 12px;
     border-radius: 16px;
   }
 
   .feature-card__icon{
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
   }
 
   .feature-card__icon img{
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
   }
 
-  .feature-card__text h3{
-    font-size: 17px;
-  }
-
+  .feature-card__text h3{ font-size: 16px; }
   .feature-card__text p{
     font-size: 14px;
-    line-height: 1.65;
+    line-height: 1.7;
   }
 }
-
 
 
 
@@ -955,9 +960,7 @@ background: linear-gradient(
   background: #f6f7f7;
   direction: ltr;              /* ✅ عربي */
 }
-.vcard--full{
-  flex: 0 0 100%;              /* ✅ أول كارت واخد الصف كله */
-}
+
 
 .vehicles__container{
   width: min(1100px, 90%);
@@ -985,41 +988,33 @@ background: linear-gradient(
 .vehicles__wrap{
   display: flex;
   gap: 36px;
-  align-items: stretch;        /* ✅ يخلي العمودين نفس الارتفاع */
+  /* align-items: stretch;        ✅ يخلي العمودين نفس الارتفاع */
 }
 
 /* LEFT */
 .vehicles__phones{
-  flex: 0 0 44%;               /* ✅ مساحة ثابتة شبه الفيجما */
+  flex: 0 0 51%;              
   display: flex;
   gap: 18px;
   align-items: stretch;
+
 }
 
-.phone{
-  flex: 1;                     /* ✅ الاتنين قد بعض */
-  height: 550px;               /* ✅ نفس الارتفاع */
+/* .phone{
+  flex: 1;                    
+  height: 550px;               
   border-radius: 28px;
   overflow: hidden;
-  /* background: #ddd; */
-}
+
+} */
 
 .phone img{
   width: 100%;
-  height: 100%;
-  object-fit: cover;           /* ✅ قص محترم */
+  height: 110%;
+  
   display: block;
 }
 
-/* لو الفيجما فيها فرق بسيط في الارتفاع/النزول بين الصورتين */
-
-
-.phone--green img{
- height: 715px;
-width: 300px;
-  object-fit: cover;  
-  transform-origin: center center;
-}
 
 /* RIGHT */
 .vehicles__cards{
@@ -1038,7 +1033,7 @@ width: 300px;
   padding: 18px 16px;
   border: 1px solid rgba(0,0,0,.06);
   text-align: center;
-  min-height: 150px;
+  min-height: 120px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1046,8 +1041,8 @@ width: 300px;
 }
 
 .vcard img{
-  width: 60px;
-  height: 70px;
+  width: 190px;
+  height: 63px;
   object-fit: contain;
   display: block;
   margin: 0 auto;
@@ -1143,10 +1138,11 @@ width: 300px;
 }
 
 /* layout */
+/* layout */
 .cargo__wrap{
   display: flex;
   gap: 28px;
-  align-items: center;
+  align-items: stretch;     /* ✅ العمودين نفس الارتفاع */
 }
 
 /* LEFT grid */
@@ -1160,11 +1156,11 @@ width: 300px;
 
 /* card */
 .cargo-card{
-  flex: 0 0 calc(50% - 8px);  /* ✅ 2 columns */
+  flex: 0 0 calc(50% - 15px);  /* ✅ 2 columns */
   background: #ffffff;
   border: 1px solid rgba(0,0,0,.06);
   border-radius: 18px;
-  padding: 22px 16px;
+  padding: 10px 10px;
   text-align: center;
 
   display: flex;
@@ -1177,7 +1173,7 @@ width: 300px;
 
 .cargo-card h3{
   margin: 0;
-  font-size: 16px;
+  font-size: 22px;
   color: #2c2f2c;
   font-weight: 600;
 }
@@ -1222,47 +1218,28 @@ width: 300px;
 .cargo-icon--animals{ background:#C8F7D6; }
 
 
+/* RIGHT phones */
 .cargo__phones{
+  flex: 0 0 46%;            /* زي ما بتحبي */
+  height: 100%;             /* ✅ قد البوكسات */
   display: flex;
-  gap: 18px;
-  flex-wrap: nowrap;
-}
-
-.cargo-phone{
-  flex: 1;
-  height: 560px;          /* ✅ ثابت */
-  border-radius: 22px;
-  overflow: hidden;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,.06);
-  padding: 14px;
-
-  display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
 }
 
+.cargo-phone{
+  width: 100%;
+  height: 100%;             /* ✅ قد البوكسات */
+  display: flex;
+}
+
 .cargo-phone img{
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;    /* ✅ الكلام يبان */
+  width: 100%;
+  height: 100%;             /* ✅ قد البوكسات */
+  object-fit: contain;      /* ✅ من غير قص */
   display: block;
 }
 
-
-/* 
-.cargo-phone.udat-phone img{
-height: 650px;
-} 
-
-/* =========================
-   Responsive
-========================= */
-/* =========================
-   Responsive
-========================= */
 
 /* 1200px وتحت: نقلل أحجام شوية */
 @media (max-width: 1200px){
@@ -1336,6 +1313,52 @@ height: 650px;
 
   .cargo-card{
     flex: 0 0 100%;
+  }
+}
+
+@media (max-width: 992px){
+  .cargo__wrap{
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .cargo-card{
+    padding: 22px 16px;
+  }
+
+  .cargo-card h3{
+    font-size: 18px;
+  }
+}
+@media (max-width: 768px){
+  .cargo__wrap{
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .cargo__phones{
+    order: 2; /* الصورة تحت */
+  }
+
+  .cargo__grid{
+    order: 1;
+  }
+
+  .cargo-card{
+    flex: 0 0 100%;
+  }
+
+  .cargo__header h2{
+    font-size: 30px;
+  }
+
+  .cargo__header p{
+    font-size: 15px;
+  }
+}
+@media (max-width: 480px){
+  .cargo-phone img{
+    max-width: 100%;
   }
 }
  /* /////////////////////steps////////////////////////////// */
@@ -1521,7 +1544,7 @@ top: -16px;
 
 .trust__header h2{
   /* margin: 0 0 8px; */
-  font-size: 40px;
+  font-size: 50px;
   font-weight: 700;
   color: rgba(253, 253, 253, 1);
   line-height: 160%;
@@ -1530,9 +1553,10 @@ top: -16px;
 
 .trust__header p{
   margin: 0;
-  font-size: 20px;
+  font-size: 30px;
   color: rgba(255,255,255,0.85);
   line-height: 40px;
+  font-weight: 400;
 }
 
 
