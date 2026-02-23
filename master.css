@@ -2110,3 +2110,77 @@ background-color: rgba(24, 25, 34, 1);
     gap: 12px;
   }
 }
+/* ////////////////ratingupdat///////////////////// */
+/* ===== Reviews Responsive FIX (put at the very end) ===== */
+
+/* Desktop الافتراضي: خليه 3 كروت (أثبت من 4) */
+.rev-card{
+  flex: 0 0 calc((100% - 36px) / 3) !important;
+}
+
+/* Tablet: 2 cards */
+@media (max-width: 900px){
+  .rev-card{
+    flex: 0 0 calc((100% - 18px) / 2) !important;
+  }
+
+  .reviews__title{ font-size: 30px; }
+}
+
+/* Mobile: 1 card */
+@media (max-width: 520px){
+  .rev-card{
+    flex: 0 0 100% !important;
+  }
+
+  .reviews__top{
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .reviews__arrows{
+    margin-top: 0;
+  }
+
+  .reviews__slider{
+    overflow: hidden;
+  }
+}
+@media (max-width: 520px){
+  .reviews__track{
+    transform: translateX(0) !important; /* يضمن إن أول كارت داخل الشاشة */
+  }
+}
+
+/* Desktop: 3 cards */
+.rev-card{
+  flex: 0 0 calc((100% - 36px) / 3);
+}
+@media (max-width: 900px){
+  .rev-card{ flex-basis: calc((100% - 18px) / 2); } /* 2 */
+}
+
+@media (max-width: 520px){
+  .rev-card{ flex-basis: 100%; } /* 1 */
+}
+.rev-arrow:disabled{
+  opacity: .45;
+  cursor: not-allowed;
+  transform: none;
+}
+/* Fix slider empty space بسبب RTL + translateX */
+.reviews__slider{
+  direction: ltr;         /* مهم جداً */
+}
+
+.reviews__track{
+  direction: ltr;         /* للتأكيد */
+  justify-content: flex-start;
+}
+
+/* خلى محتوى الكارت عربي طبيعي */
+.rev-card{
+  direction: rtl;
+  text-align: right;
+}

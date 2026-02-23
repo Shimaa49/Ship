@@ -185,13 +185,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  // 👇 يحدد كام كارت ظاهر حسب الشاشة
   const getVisibleCount = () => {
     const w = window.innerWidth;
     if (w <= 520) return 1;
     if (w <= 900) return 2;
-    return 3; // desk
+    return 3; // Desktop
   };
 
+  // 👇 خطوة الحركة = عرض الكارت + الجاب (ديناميك)
   const getStep = () => {
     const card = track.querySelector(".rev-card");
     if (!card) return 0;
@@ -203,10 +205,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let index = 0;
 
+  // ✅ آخر إندكس ممكن (عشان مايبقاش في فراغ أبيض)
   const getMaxIndex = () => {
-    const total = reviewsData.length;
+    const total = track.querySelectorAll(".rev-card").length; // أدق بعد الريندر
     const visible = getVisibleCount();
     return Math.max(0, total - visible);
+  };
+
+  const setArrowsState = () => {
+    const max = getMaxIndex();
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === max;
   };
 
   const buildDots = () => {
@@ -233,13 +242,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const update = () => {
     const max = getMaxIndex();
+
+    // ✅ clamp
     if (index < 0) index = 0;
     if (index > max) index = max;
 
     const x = getStep() * index;
-    track.style.transform = `translateX(-${x}px)`; // <-- سالب
+
+    // ✅ تحريك + بدون فراغ
+    track.style.transform = `translateX(-${x}px)`;
 
     updateDots();
+    setArrowsState();
   };
 
   prevBtn.addEventListener("click", () => {
@@ -253,6 +267,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   window.addEventListener("resize", () => {
+    // ✅ لو الشاشة صغرت/كبرت، تأكد الإندكس لسه valid
+    const max = getMaxIndex();
+    if (index > max) index = max;
+
     buildDots();
     update();
   });
@@ -261,9 +279,6 @@ document.addEventListener("DOMContentLoaded", () => {
   buildDots();
   update();
 })();
-/////////////////////////rating end///////////////////////////
-
-
 
 
 
