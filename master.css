@@ -137,7 +137,7 @@ body{
 
   .hero-content{
     flex-direction: column;
-    padding: 70px 24px 30px; /* فوق اكتر عشان البادج */
+    padding: 70px 24px 30px; 
     gap: 24px;
   }
 
@@ -152,7 +152,7 @@ body{
 
   .hero-phones{
     width: 100%;
-    max-width: 520px; /* ✅ عشان ما تكبرش قوي */
+    max-width: 520px; 
     margin: 0 auto;
   }
 
@@ -184,7 +184,7 @@ body{
 
 
 /* =========================
-   Mobile (<= 576px)
+   Mobile
 ========================= */
 @media (max-width: 576px){
   .hero{
@@ -193,11 +193,11 @@ body{
 
   .hero-box{
     max-width: 94%;
-    border-radius: 18px; /* لو عندك radius في التصميم */
+    border-radius: 18px;
   }
 
   .hero-content{
-    padding: 66px 14px 22px; /* ✅ مهم عشان البادج */
+    padding: 66px 14px 22px; 
     gap: 18px;
   }
 
@@ -229,7 +229,7 @@ body{
   }
 
   .hero-actions{
-    flex-direction: column;   /* ✅ الأزرار تحت بعض */
+    flex-direction: column;  
     gap: 10px;
     align-items: stretch;
   }
@@ -282,50 +282,49 @@ body{
  
 }
 
-/* ===== Layout ===== */
+
 /* ===== Layout ===== */
 .features__content{
   display: grid;
-  grid-template-columns: 1fr 1fr; /* يمين + شمال */
-  gap: 24px;                      /* زي ما تحبي */
-  align-items: stretch;           /* أهم سطر: يخلي العمودين نفس الارتفاع */
+  grid-template-columns: 1fr 1fr; 
+  gap: 24px;                  
+  align-items: stretch;          
 }
 
 /* ===== Phones (Left) ===== */
 .features__phones{
-  height: 100%;                   /* ياخد نفس ارتفاع عمود البوكسات */
+  height: 100%;                  
   display: flex;
   gap: 15px;
-  align-items: stretch;           /* يخلي الاتنين نفس الارتفاع */
+  align-items: stretch;          
   justify-content: flex-start;
 }
 
-/* خلي كل موبايل ياخد نفس المساحة */
+
 .features__phone{
   flex: 1;
   display: flex;
 }
 
-/* الصورة تملى الارتفاع بدون قص */
 .features__phone img{
   width: 100%;
   height: 100%;
-  object-fit: contain;            /* مهم: يحافظ على الصورة بدون قص */
+  object-fit: contain;           
   display: block;
 }
 
 /* ===== Cards (Right) ===== */
 .features__cards{
-  height: 100%;                   /* اختياري، بس بيساعد مع grid */
+  height: 100%;                  
   display: flex;
   flex-direction: column;
   gap: 10px;
-  justify-content: space-between; /* مهم: يوزع البوكسات بحيث “تنهي” مع الصور */
+  justify-content: space-between; 
 }
 
-/* خلي الكارد تتمدد لو محتاجه */
+
 .feature-card{
-  flex: 1;                        /* يخلي الثلاث كروت ياخدوا ارتفاع متساوي */
+  flex: 1;                      
   padding: 18px;
   border-radius: 20px;
   background: #fff;
@@ -395,7 +394,7 @@ body{
 
 
 
-/* ===== Responsive ===== */
+
 /* =========================
    Responsive
 ========================= */
@@ -415,15 +414,15 @@ body{
     padding: 0 10px;
   }
 
-  /* ✅ لأننا Grid مش Flex */
+
   .features__content{
-    grid-template-columns: 1fr; /* عمود واحد */
+    grid-template-columns: 1fr; 
     gap: 24px;
   }
 
   /* phones */
   .features__phones{
-    height: auto;               /* مهم: مانفضلش 100% في العمود الواحد */
+    height: auto;               
     justify-content: center;
     align-items: stretch;
     gap: 14px;
@@ -431,11 +430,11 @@ body{
 
   .features__phone{
     flex: 1;
-    max-width: 340px;           /* يتحكم في العرض */
+    max-width: 340px;          
   }
 
   .features__phone img{
-    height: auto;               /* لأننا بقينا stack */
+    height: auto;             
     width: 100%;
     object-fit: contain;
   }
@@ -444,11 +443,11 @@ body{
   .features__cards{
     height: auto;
     gap: 14px;
-    justify-content: flex-start; /* بدل space-between عشان ما يبقاش فيه فراغات غريبة */
+    justify-content: flex-start; 
   }
 
   .feature-card{
-    flex: initial;              /* وقف تساوي الارتفاع في الموبايل */
+    flex: initial;              
     padding: 16px;
     border-radius: 18px;
   }
@@ -697,7 +696,7 @@ gap: 10px;
   }
   .drivers__desc{ max-width: 100%; }
 }
-/* خليه LTR بس عشان السلايدر يشتغل صح حتى لو الصفحة RTL */
+
 .drivers__right{ direction: ltr; }
 
 .slider{
@@ -821,7 +820,7 @@ background: linear-gradient(
   cursor: pointer;
 }
 
-/* ===== client slider (carousel like figma) ===== */
+/* ===== client slider  ===== */
 
 .client-slider{
   width: 50%;
@@ -835,7 +834,7 @@ background: linear-gradient(
   padding: 10px 0 0;
 }
 
-/* لو فيه حاجة كانت بتغطي الدوتس */
+
 .client-dots{
   position: relative;
   z-index: 10;
@@ -854,13 +853,13 @@ background: linear-gradient(
   transition: transform .45s ease;
   will-change: transform;
   transform: translateX(0);
-  padding: 0 20px; /* مساحة بسيطة زي الفيجما */
+  padding: 0 20px; 
 }
 
 /* Slides */
 .client-slide{
   flex: 0 0 auto;
-  width: 260px;                 /* عدّلي لو صورك أعرض/أضيق */
+  width: 260px;                
   height: auto;
   display: block;
   opacity: .35;
@@ -912,16 +911,16 @@ background: linear-gradient(
 }
 /* /////////////////////ubdat////////////////// */
 .client-viewport{
-  overflow-x: auto;         /* ✅ بدل hidden */
+  overflow-x: auto;        
   overflow-y: hidden;
   scroll-behavior: smooth;
-  direction: ltr;           /* ✅ مهم جدًا عشان RTL ما يبوّظش الحساب */
-  -ms-overflow-style: none; /* hide scrollbar (IE/Edge old) */
-  scrollbar-width: none;    /* hide scrollbar (Firefox) */
+  direction: ltr;          
+  -ms-overflow-style: none;
+  scrollbar-width: none;   
 }
 
 .client-viewport::-webkit-scrollbar{
-  display: none;            /* hide scrollbar (Chrome/Safari) */
+  display: none;           
 }
 
 .client-track{
@@ -929,10 +928,10 @@ background: linear-gradient(
   align-items: center;
   gap: 26px;
   padding: 0 20px;
-  width: max-content;       /* ✅ يخلي التراك ياخد عرض كل الصور */
+  width: max-content;       
 }
 .client-track{
-  direction: ltr; /* ✅ يخلي ترتيب العناصر ثابت جوه التراك */
+  direction: ltr; 
 }
 .client-viewport{
   scroll-snap-type: x mandatory;
@@ -958,7 +957,7 @@ background: linear-gradient(
 .vehicles{
   padding: 70px 0;
   background: #f6f7f7;
-  direction: ltr;              /* ✅ عربي */
+  direction: ltr;            
 }
 
 
@@ -988,7 +987,7 @@ background: linear-gradient(
 .vehicles__wrap{
   display: flex;
   gap: 36px;
-  /* align-items: stretch;        ✅ يخلي العمودين نفس الارتفاع */
+  /* /* align-items: stretch;       */
 }
 
 /* LEFT */
@@ -1027,7 +1026,7 @@ background: linear-gradient(
 
 /* cards */
 .vcard{
-  flex: 0 0 calc(50% - 8px);   /* ✅ كارتين في الصف */
+  flex: 0 0 calc(50% - 8px);   
   background: #fff;
   border-radius: 16px;
   padding: 18px 16px;
@@ -1142,7 +1141,7 @@ background: linear-gradient(
 .cargo__wrap{
   display: flex;
   gap: 28px;
-  align-items: stretch;     /* ✅ العمودين نفس الارتفاع */
+  align-items: stretch;    
 }
 
 /* LEFT grid */
@@ -1220,8 +1219,8 @@ background: linear-gradient(
 
 /* RIGHT phones */
 .cargo__phones{
-  flex: 0 0 46%;            /* زي ما بتحبي */
-  height: 100%;             /* ✅ قد البوكسات */
+  flex: 0 0 46%;            
+  height: 100%;           
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -1229,26 +1228,25 @@ background: linear-gradient(
 
 .cargo-phone{
   width: 100%;
-  height: 100%;             /* ✅ قد البوكسات */
+  height: 100%;          
   display: flex;
 }
 
 .cargo-phone img{
   width: 100%;
-  height: 100%;             /* ✅ قد البوكسات */
-  object-fit: contain;      /* ✅ من غير قص */
+  height: 100%;            
+  object-fit: contain;      
   display: block;
 }
 
 
-/* 1200px وتحت: نقلل أحجام شوية */
 @media (max-width: 1200px){
   .cargo__phones{ flex: 0 0 46%; }
   .cargo-phone{ height: 500px; }
   .cargo__header h2{ font-size: 40px; }
 }
 
-/* 992px وتحت: نخلي الشبكة لسه 2 عمود بس نقلل الارتفاع */
+
 @media (max-width: 992px){
   .cargo__wrap{
     gap: 20px;
@@ -2113,7 +2111,7 @@ background-color: rgba(24, 25, 34, 1);
 /* ////////////////ratingupdat///////////////////// */
 /* ===== Reviews Responsive FIX (put at the very end) ===== */
 
-/* Desktop الافتراضي: خليه 3 كروت (أثبت من 4) */
+
 .rev-card{
   flex: 0 0 calc((100% - 36px) / 3) !important;
 }
@@ -2149,7 +2147,7 @@ background-color: rgba(24, 25, 34, 1);
 }
 @media (max-width: 520px){
   .reviews__track{
-    transform: translateX(0) !important; /* يضمن إن أول كارت داخل الشاشة */
+    transform: translateX(0) !important; 
   }
 }
 
@@ -2171,15 +2169,15 @@ background-color: rgba(24, 25, 34, 1);
 }
 /* Fix slider empty space بسبب RTL + translateX */
 .reviews__slider{
-  direction: ltr;         /* مهم جداً */
+  direction: ltr;        
 }
 
 .reviews__track{
-  direction: ltr;         /* للتأكيد */
+  direction: ltr;       
   justify-content: flex-start;
 }
 
-/* خلى محتوى الكارت عربي طبيعي */
+
 .rev-card{
   direction: rtl;
   text-align: right;

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // =========================
-  // 1) DRIVERS SLIDER (dots auto-build) - translate by %
+  
   // =========================
   (function initDrivers() {
     const root = document.getElementById("driversSlider");
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   scrollToSlide(0, false);
 });
-/////////////////////////rating///////////////////////////
+
 
 /////////////////////////rating///////////////////////////
 (() => {
@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // 👇 يحدد كام كارت ظاهر حسب الشاشة
+  
   const getVisibleCount = () => {
     const w = window.innerWidth;
     if (w <= 520) return 1;
@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return 3; // Desktop
   };
 
-  // 👇 خطوة الحركة = عرض الكارت + الجاب (ديناميك)
+
   const getStep = () => {
     const card = track.querySelector(".rev-card");
     if (!card) return 0;
@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let index = 0;
 
-  // ✅ آخر إندكس ممكن (عشان مايبقاش في فراغ أبيض)
+ 
   const getMaxIndex = () => {
     const total = track.querySelectorAll(".rev-card").length; // أدق بعد الريندر
     const visible = getVisibleCount();
@@ -249,7 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const x = getStep() * index;
 
-    // ✅ تحريك + بدون فراغ
+ 
     track.style.transform = `translateX(-${x}px)`;
 
     updateDots();
@@ -267,7 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   window.addEventListener("resize", () => {
-    // ✅ لو الشاشة صغرت/كبرت، تأكد الإندكس لسه valid
+  
     const max = getMaxIndex();
     if (index > max) index = max;
 
