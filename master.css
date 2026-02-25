@@ -22,7 +22,7 @@ body{
  
   max-width: 100%;
   margin: 0 auto;
-
+height: 100vh;
   background: url("images/Rectangle.png") center/cover no-repeat;
  
 
@@ -778,7 +778,7 @@ max-width: 80%;
 
 .client-desc{
   font-size: 20px;
-  opacity: .9;
+  opacity:0.9; ;
   margin-bottom: 30px;
   color: rgba(98, 100, 103, 1);
 }
@@ -862,17 +862,17 @@ background: linear-gradient(
   width: 260px;                
   height: auto;
   display: block;
-  opacity: .35;
+  /* opacity: .35; */
   transform: scale(.92);
-  transition: opacity .35s ease, transform .35s ease;
-  filter: drop-shadow(0 30px 35px rgba(0,0,0,.22));
+  /* transition: opacity .35s ease, transform .35s ease;
+  filter: drop-shadow(0 30px 35px rgba(0,0,0,.22)); */
 }
 
 /* active (اللي في النص) */
-.client-slide.is-active{
+/* .client-slide.is-active{
   opacity: 1;
   transform: scale(1);
-}
+} */
 
 /* dots */
 .client-dots{
@@ -2182,3 +2182,17 @@ background-color: rgba(24, 25, 34, 1);
   direction: rtl;
   text-align: right;
 }
+
+/* ///////////////////slider section2//////////////// */
+/* drivers slider drag UX */
+#driversSlider .slider__track{
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y; /* يسمح بالسكرول الرأسي للصفحة ويخلينا نسحب أفقي */
+}
+
+#driversSlider.is-dragging .slider__track{
+  cursor: grabbing;
+}
+#driversSlider { cursor: ew-resize; }

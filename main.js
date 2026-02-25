@@ -1,7 +1,13 @@
+/* =========================
+   MAIN JS (Full Project)
+   ========================= */
+
+/* =========================
+   1) DRIVERS SLIDER
+   - Dots
+   - MouseMove (تقليب بالموس العادي)
+   ========================= */
 document.addEventListener("DOMContentLoaded", () => {
-  // =========================
-  
-  // =========================
   (function initDrivers() {
     const root = document.getElementById("driversSlider");
     if (!root) return;
@@ -31,14 +37,44 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function go(i) {
-      index = (i + slides.length) % slides.length;
+      index = Math.max(0, Math.min(i, slides.length - 1)); // ✅ no loop
       update();
     }
 
+    // ✅ Mouse move to slide (تقليب بالموس العادي)
+    let locked = false;
+    const lockMs = 160; // خفيف
+    const edge = 12;    // يمنع حساسية الحواف
+
+    root.addEventListener("mousemove", (e) => {
+      const rect = root.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+
+      if (x < edge || x > rect.width - edge) return;
+
+      // نقسم العرض لمناطق بعدد السلايدز
+      const ratio = x / rect.width; // 0..1
+      const target = Math.min(
+        slides.length - 1,
+        Math.max(0, Math.floor(ratio * slides.length))
+      );
+
+      if (target === index) return;
+      if (locked) return;
+
+      locked = true;
+      go(target);
+      setTimeout(() => (locked = false), lockMs);
+    });
+
     update();
   })();
-
 });
+
+
+/* =========================
+   2) CLIENT SLIDER (Scroll Snap)
+   ========================= */
 document.addEventListener("DOMContentLoaded", () => {
   const slider = document.getElementById("clientSlider");
   if (!slider) return;
@@ -57,10 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function scrollToSlide(i, smooth = true) {
     if (!slides[i]) return;
-
     const slide = slides[i];
 
-    
     const targetLeft =
       slide.offsetLeft - (viewport.clientWidth - slide.clientWidth) / 2;
 
@@ -91,12 +125,10 @@ document.addEventListener("DOMContentLoaded", () => {
     return closestIdx;
   }
 
-
   dots.forEach((dot, i) => {
     dot.addEventListener("click", () => scrollToSlide(i, true));
   });
 
-  
   viewport.addEventListener("scroll", () => {
     if (rafId) return;
     rafId = requestAnimationFrame(() => {
@@ -109,7 +141,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-
   window.addEventListener("resize", () => {
     scrollToSlide(activeIndex, false);
   });
@@ -118,7 +149,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-/////////////////////////rating///////////////////////////
+/* =========================
+   3) REVIEWS SLIDER (translateX + arrows + dots)
+   ========================= */
 (() => {
   const track = document.getElementById("reviewsTrack");
   const template = document.getElementById("reviewTemplate");
@@ -129,46 +162,14 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!track || !template || !dotsWrap || !prevBtn || !nextBtn) return;
 
   const reviewsData = [
-    {
-      text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
-      name: "John Carter",
-      role: "سائق محترف",
-    },
-    {
-      text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
-      name: "John Carter",
-      role: "سائق محترف",
-    },
-    {
-      text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
-      name: "John Carter",
-      role: "سائق محترف",
-    },
-    {
-      text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
-      name: "John Carter",
-      role: "سائق محترف",
-    },
-    {
-      text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
-      name: "John Carter",
-      role: "سائق محترف",
-    },
-    {
-      text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
-      name: "John Carter",
-      role: "سائق محترف",
-    },
-    {
-      text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
-      name: "John Carter",
-      role: "سائق محترف",
-    },
-    {
-      text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم",
-      name: "John Carter",
-      role: "سائق محترف",
-    },
+    { text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم", name: "John Carter", role: "سائق محترف" },
+    { text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم", name: "John Carter", role: "سائق محترف" },
+    { text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم", name: "John Carter", role: "سائق محترف" },
+    { text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم", name: "John Carter", role: "سائق محترف" },
+    { text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم", name: "John Carter", role: "سائق محترف" },
+    { text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم", name: "John Carter", role: "سائق محترف" },
+    { text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم", name: "John Carter", role: "سائق محترف" },
+    { text: "هو منصة ذكية بتربط العملاء بالسائقين لنقل جميع أنواع الشحنات بطريقة آمنة وسريعة. من أول الطلب لحد التسليم", name: "John Carter", role: "سائق محترف" },
   ];
 
   const renderCards = () => {
@@ -185,14 +186,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  
   const getVisibleCount = () => {
     const w = window.innerWidth;
     if (w <= 520) return 1;
     if (w <= 900) return 2;
-    return 3; // Desktop
+    return 3;
   };
-
 
   const getStep = () => {
     const card = track.querySelector(".rev-card");
@@ -205,9 +204,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let index = 0;
 
- 
   const getMaxIndex = () => {
-    const total = track.querySelectorAll(".rev-card").length; // أدق بعد الريندر
+    const total = track.querySelectorAll(".rev-card").length;
     const visible = getVisibleCount();
     return Math.max(0, total - visible);
   };
@@ -242,14 +240,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const update = () => {
     const max = getMaxIndex();
-
-    // ✅ clamp
     if (index < 0) index = 0;
     if (index > max) index = max;
 
     const x = getStep() * index;
-
- 
     track.style.transform = `translateX(-${x}px)`;
 
     updateDots();
@@ -267,10 +261,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   window.addEventListener("resize", () => {
-  
     const max = getMaxIndex();
     if (index > max) index = max;
-
     buildDots();
     update();
   });
@@ -281,74 +273,9 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/////////////////////////rating end///////////////////////////
-//////////////////////////download///////////////////////////
+/* =========================
+   4) DOWNLOAD COUNTERS
+   ========================= */
 (() => {
   const section = document.getElementById("download");
   if (!section) return;
@@ -356,16 +283,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const counters = section.querySelectorAll(".counter");
   let started = false;
 
-  const format = (value, decimals = 0) => {
-    return Number(value).toFixed(decimals);
-  };
+  const format = (value, decimals = 0) => Number(value).toFixed(decimals);
 
   const animateCounter = (el) => {
     const target = parseFloat(el.dataset.target || "0");
     const decimals = parseInt(el.dataset.decimals || "0", 10);
     const suffix = el.dataset.suffix || "";
 
-    const duration = 1100; 
+    const duration = 1100;
     const startTime = performance.now();
 
     const tick = (now) => {
@@ -398,4 +323,86 @@ document.addEventListener("DOMContentLoaded", () => {
 
   io.observe(section);
 })();
-//////////////////////////download-end///////////////////////////
+
+
+/* =========================
+   5) WHEEL for CLIENT SLIDER (optional)
+   ========================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const slider = document.getElementById("clientSlider");
+  if (!slider) return;
+
+  const viewport = slider.querySelector(".client-viewport");
+  if (!viewport) return;
+
+  viewport.addEventListener(
+    "wheel",
+    (e) => {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+
+      e.preventDefault();
+      viewport.scrollBy({
+        left: e.deltaY,
+        behavior: "smooth",
+      });
+    },
+    { passive: false }
+  );
+});
+
+
+/* =========================
+   6) HERO MANUAL (keyboard + swipe drag)
+   ملاحظة: لازم CSS يظبط .is-active للصور
+   ========================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const imgs = Array.from(document.querySelectorAll(".hero-phones img"));
+  if (imgs.length < 2) return;
+
+  let index = 0;
+  let startX = 0;
+  let isDragging = false;
+
+  function update() {
+    imgs.forEach((img, i) => img.classList.toggle("is-active", i === index));
+  }
+
+  function next() {
+    if (index < imgs.length - 1) {
+      index++;
+      update();
+    }
+  }
+
+  function prev() {
+    if (index > 0) {
+      index--;
+      update();
+    }
+  }
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") next();
+    if (e.key === "ArrowLeft") prev();
+  });
+
+  const hero = document.querySelector(".hero-box");
+  if (!hero) return;
+
+  hero.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    startX = e.clientX;
+  });
+
+  hero.addEventListener("mouseup", (e) => {
+    if (!isDragging) return;
+
+    const diff = e.clientX - startX;
+    if (diff > 50) prev();
+    if (diff < -50) next();
+
+    isDragging = false;
+  });
+
+  update();
+});
